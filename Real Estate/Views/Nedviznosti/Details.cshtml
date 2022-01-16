@@ -1,0 +1,96 @@
+﻿@model Real_Estate_Project.Models.Nedviznosti
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Nedviznosti</h1>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Ime)</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Lokacija)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Lokacija)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Golemina)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Golemina) m2
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cena)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cena) €
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Kategorija)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Kategorija)
+        </dd>
+        @if (@Model.Sopstvenik != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Sopstvenik)
+            </dt>
+            <dd class="col-sm-10">
+                <a asp-controller="Korisnici" asp-action="Details" asp-route-id="@Model.Sopstvenik.Id">@Html.DisplayFor(model => model.Sopstvenik.ImePrezime)</a>
+            </dd>
+        }
+        @if (@Model.Agencija != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Agencija)
+            </dt>
+            <dd class="col-sm-10">
+                <a asp-controller="Agencii" asp-action="Details" asp-route-id="@Model.Agencija.Id">@Html.DisplayFor(model => model.Agencija.Ime)</a>
+            </dd>
+        }
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BrojOmileni)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BrojOmileni)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MainImage)
+        </dt>
+        <dd class="col-sm-10">
+            @if (@Model.MainImage != null)
+            {
+                <img src="~/images/@Html.DisplayFor(model => model.MainImage)" />
+            }
+            else
+            {
+                <img src="~/images/pexels-photo-106399.jpeg" />
+            }
+
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>}
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {<p style="display:inline-block"> | </p>}
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+<a asp-action="Index">Back to List</a>}
+    @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+    {
+<a asp-controller="Nedviznosti" asp-action="Index">View all</a>}
+</div>

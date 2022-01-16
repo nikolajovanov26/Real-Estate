@@ -1,0 +1,67 @@
+﻿@model Real_Estate_Project.Models.Korisnik
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Korisnik</h1>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Ime)</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Prezime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Prezime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nedviznosti)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var ned in Model.Nedviznosti)
+            {
+                <a asp-controller="Nedviznosti" asp-action="Details" asp-route-id="@ned.Id">
+                    @ned.Ime
+                </a> <br />
+            }
+        </dd>
+        <hr />
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Omileni)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var ned in Model.Nedviznosti)
+            {
+                <a asp-controller="Nedviznosti" asp-action="Details" asp-route-id="@ned.Id"> @ned.Ime </a> <br />            
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>}
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {<p style="display:inline-block"> | </p>}
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+<a asp-action="Index">Back to List</a>}
+    @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+    {
+<a asp-controller="Nedviznosti" asp-action="Index">View all</a>}
+</div>

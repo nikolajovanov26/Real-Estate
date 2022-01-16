@@ -1,0 +1,91 @@
+﻿@model Real_Estate.ViewModels.NedviznostiVM
+
+
+<h1>Create</h1>
+
+<h4>Nedviznosti</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ime" class="control-label"></label>
+                <input asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grad" class="control-label"></label>
+                <input asp-for="Grad" class="form-control" />
+                <span asp-validation-for="Grad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Golemina" class="control-label"></label>
+                <input asp-for="Golemina" class="form-control" />
+                <span asp-validation-for="Golemina" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cena" class="control-label"></label>
+                <input asp-for="Cena" class="form-control" />
+                <span asp-validation-for="Cena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kategorija" class="control-label"></label>
+                <input asp-for="Kategorija" class="form-control" />
+                <span asp-validation-for="Kategorija" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KorisnikId" class="control-label"></label>
+                <select asp-for="KorisnikId" class="form-control" asp-items="ViewBag.KorisnikId">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgencijaId" class="control-label"></label>
+                <select asp-for="AgencijaId" class="form-control" asp-items="ViewBag.AgencijaId">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrojOmileni" class="control-label"></label>
+                <input asp-for="BrojOmileni" class="form-control" />
+                <span asp-validation-for="BrojOmileni" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MainImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="MainImage" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="MainImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<script type="text/javascript">
+        label = document.querySelector('.custom-file-label');
+        input = document.querySelector('.custom-file-input');
+        input.addEventListener("change", displayName);
+        function displayName() {
+            var fileName = input.value.split("\\").pop();
+            label.innerText = fileName;
+        }
+</script>

@@ -1,0 +1,92 @@
+﻿@model Real_Estate.ViewModels.NedviznostiVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Find your next Home</h1>
+        </div>
+    </div>
+</section>
+
+<form asp-controller="Nedviznosti" asp-action="Index" method="get">
+    <p>
+        Search: <input type="text" name="SearchString" />
+        Lokacija: <select asp-for="Grad" asp-items="Model.Gradovi">
+            <option value="">Site</option>
+        </select>
+        Status: <select asp-for="Status" asp-items="Model.Statusi">
+            <option value="">Site</option>
+        </select>
+        Cena: <select asp-for="Cena">
+            <option value="0">Site</option>
+            <option value="1">-1.000</option>
+            <option value="2">1.000-10.000</option>
+            <option value="3">10.000-50.000</option>
+            <option value="4">50.000+</option>
+        </select>
+
+        <!-- Price range:
+        <span class="multi-range">
+            <input type="range" min="0" max="50" value="5" id="lower">
+            <input type="range" min="0" max="50" value="45" id="upper">
+        </span>-->
+        <input type="submit" class="btn btn-primary" value="Filter" />
+    </p>
+</form>
+
+<div class="grid-nedviznosti">
+    @foreach (var item in Model.Nedviznosti)
+    {
+
+        <div class="card shadow-sm">
+            @if (item.MainImage != null)
+            {
+                <img src="~/images/@item.MainImage" width="100%" />
+            }
+            else
+            {
+                <img src="~/images/pexels-photo-106399.jpeg" width="100%" />
+            }
+
+        <div class="card-body">
+            @if (item.Status == "Se prodava")
+            {
+                <p class="status blue">@Html.DisplayFor(modelItem => item.Status)</p>
+            }
+            @if (item.Status == "Se izdava")
+            {
+                <p class="status green">@Html.DisplayFor(modelItem => item.Status)</p>
+            }
+            <div class="flex-block">
+                <h2 class="ime">@Html.DisplayFor(modelItem => item.Ime)</h2>
+                <p class="golemina">@string.Format("{0:n0}", item.Golemina) m<sup>2</sup></p>
+            </div>
+            <p class="cena">@string.Format("{0:n0}", item.Cena) €</p>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+
+
+            <div class="d-flex justify-content-between align-items-center">
+               
+                <div class="btn-group">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                <a asp-action="Edit" class="btn btn-sm btn-outline-secondary" asp-route-id="@item.Id">Edit</a>}
+
+                    <a asp-action="Details" class="btn btn-sm btn-outline-secondary" asp-route-id="@item.Id">Details</a>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                <a asp-action="Delete" class="btn btn-sm btn-outline-secondary" asp-route-id="@item.Id">Delete</a>
+                    }
+                                </div>
+                
+                <small class="text-muted"><img src="~/images/heart-regular.svg" class="fav-icon" /> @Html.DisplayFor(modelItem => item.BrojOmileni)</small>
+            </div>
+        </div>
+        </div>
+
+    }
+</div>
