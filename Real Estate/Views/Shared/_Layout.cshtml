@@ -20,12 +20,12 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Nedviznosti" asp-action="Index">Doma</a>
+                        </li>
 
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Nedviznosti" asp-action="Index">Doma</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Korisnici" asp-action="Index">Korisnici</a>
                             </li>
@@ -35,11 +35,18 @@
                         }
                         @if (User.Identity.IsAuthenticated && User.IsInRole("Korisnik"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Nedviznosti" asp-action="Index">Doma</a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Omileni" asp-action="Index">Omileni</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Nedviznosti" asp-action="Create">Objavi Oglas</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Agencija"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Nedviznosti" asp-action="Create">Objavi Oglas</a>
                             </li>
                         }
                     </ul>
